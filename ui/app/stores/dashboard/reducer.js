@@ -53,7 +53,7 @@ const appReducer = (state = initialState, action) =>
         break;
       }
       case constants.GET_DASHBOARD_PANEL_SUCCESS: {
-        draft.panels[action.payload.panelId].data = sanitize(action.payload.data);
+        draft.panels[action.payload.panelId].data = sanitize({ ...action.payload.data });
         draft.panels[action.payload.panelId].loading = false;
         draft.panels[action.payload.panelId].status = false;
         break;

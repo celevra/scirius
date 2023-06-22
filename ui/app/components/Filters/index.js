@@ -98,6 +98,7 @@ const Filter = ({ page, section, queryTypes, filterTypes, onSortChange, sortValu
   const saveFiltersModal = useSelector(ruleSetsSelectors.makeSelectSaveFiltersModal());
   const supportedActionsPermissions = user && user.data && user.data.permissions && user.data.permissions.includes('rules.ruleset_policy_edit');
   const filtersAreSticky = useSelector(({ ruleSet }) => ruleSet?.filtersAreSticky);
+  const hasLicense = useSelector(strGlobalSelectors.makeSelectHasLicense());
 
   // State handlers
   const [valid, setValid] = useState('');
@@ -366,7 +367,7 @@ const Filter = ({ page, section, queryTypes, filterTypes, onSortChange, sortValu
               <Sort page={page} onChange={(option, direction) => onSortChange(option, direction)} value={sortValues} />
             )}
           </Space>
-          {page !== 'HISTORY' && (process.env.REACT_APP_HAS_TAG === '1' || process.env.NODE_ENV === 'development') && (
+          {page !== 'HISTORY' && hasLicense('nta') && (
             <div>
               <Title>Tags Filters</Title>
               <Space direction="vertical">
